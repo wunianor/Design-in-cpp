@@ -172,6 +172,32 @@ namespace LIST
 			erase(--end());
 		}
 
+		//获取第一个元素
+		T& front()
+		{
+			assert(size() > 0);
+			return _head->_next->_data;
+		}
+
+		const T& front() const
+		{
+			assert(size() > 0);
+			return _head->_next->_data;
+		}
+
+		//获取最后一个元素
+		T& back()
+		{
+			assert(size() > 0);
+			return _head->_prev->_data;
+		}
+
+		const T& back() const 
+		{
+			assert(size() > 0);
+			return _head->_prev->_data;
+		}
+
 		iterator insert(iterator pos,const T& val)//不会发生迭代器失效
 		{
 			Node* cur = pos._node;
