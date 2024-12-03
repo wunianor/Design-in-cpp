@@ -129,6 +129,14 @@ namespace VECTOR
 				_end_of_storage = _start + n;
 			}
 		}
+
+		//头插
+		void push_front(const T& val)
+		{
+			insert(begin(), val);
+		}
+
+		//尾插
 		void push_back(const T& val)
 		{
 			if (_finish == _end_of_storage)
@@ -141,6 +149,7 @@ namespace VECTOR
 
 		}
 
+		//插入
 		void insert(iterator pos, const T& val)
 		{
 			assert(_start <= pos && pos <= _finish);
@@ -159,6 +168,20 @@ namespace VECTOR
 			*pos = val;
 			++_finish;
 		}
+
+		//头删
+		void pop_front()
+		{
+			erase(begin());
+		}
+
+		//尾删
+		void pop_back()
+		{
+			erase(end() - 1);
+		}
+
+		//删除
 		void erase(iterator pos)
 		{
 			assert(_start<=pos && pos<_finish);
@@ -187,6 +210,34 @@ namespace VECTOR
 			assert(pos < size());
 			return _start[pos];
 		}
+
+		//获取第一个元素
+		T& front()
+		{
+			assert(size() > 0);
+			return _start[0];
+		}
+
+		const T& front() const
+		{
+			assert(size() > 0);
+			return _start[0];
+		}
+
+		//获取最后一个元素
+		T& back()
+		{
+			assert(size() > 0);
+			return _start[size() - 1];
+		}
+
+		const T& back() const
+		{
+			assert(size() > 0);
+			return _start[size() - 1];
+		}
+
+
 
 		//迭代器
 		iterator begin()
