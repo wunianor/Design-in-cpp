@@ -24,10 +24,12 @@ public:
 			root = _ufs[root];
 		}
 
-		//路径压缩
-		if (_ufs[x] >= 0)//如果x不为根,进行路径压缩
+		//路径压缩(优化)
+		while (_ufs[x] >= 0)//如果x不为根,进行路径压缩,压缩从x到根的所有结点(不包括根)的路径
 		{
+			int parent = _ufs[x];
 			_ufs[x] = root;
+			x = parent;
 		}
 
 		return root;
@@ -38,11 +40,20 @@ public:
 	{
 		int root1 = Find_root(x1);
 		int root2 = Find_root(x2);
-		if (root1 == root2)//如果x1和x2在同一个集合,不需要合并,直接return
+
+		//如果x1和x2在同一个集合,不需要合并,直接return
+		if (root1 == root2)
 		{
 			return;
 		}
-		
+
+		//如果root1的集合数据量小于root2集合的数据量(优化:数据量小的往数据量大的合并)
+		if (abs(_ufs[root1]) < abs(_ufs[root2]))
+		{
+			swap(root1, root2);
+		}
+
+		//数据量小的集合往数据量大的集合合并
 		_ufs[root1] += _ufs[root2];
 		_ufs[root2] = root1;
 	}
