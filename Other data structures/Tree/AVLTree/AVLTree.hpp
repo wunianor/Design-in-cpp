@@ -13,7 +13,11 @@ struct AVLTreeNode
 	int _bf;   //Balance factor(平衡因子)=右子树高度-左子树高度
 
 	AVLTreeNode(const pair<K, V>& kv) :
-		_kv(kv), _left(nullptr), _right(nullptr), _parent(nullptr), _bf(0){}
+		_kv(kv), 
+		_left(nullptr), 
+		_right(nullptr), 
+		_parent(nullptr), 
+		_bf(0){}
 
 };
 
@@ -24,7 +28,15 @@ class AVLTree
 {
 	typedef AVLTreeNode<K, V> Node;
 
+	/// <summary>
+	/// 树的根节点
+	/// </summary>
 	Node* _root = nullptr;
+
+	/// <summary>
+	/// 树的大小
+	/// </summary>
+	int _size = 0;
 
 	//左单旋
 	void RotateL(Node* parent)
@@ -196,7 +208,7 @@ class AVLTree
 		_in_order(root->_right);
 	}
 
-	//is_balance子函数,判断是否是合格的AVL树并返回高度
+	//is_balance()子函数---判断是否是合格的AVL树并返回高度
 	pair<bool,int> _is_balance(Node* root)
 	{
 		if (root == nullptr)
@@ -218,12 +230,8 @@ class AVLTree
 		return make_pair(ret_first, ret_second);
 	}
 
-public:
-	AVLTree():
-		_root(nullptr){}
-
-	//插入
-	bool insert(const pair<K, V>& kv)
+	//insert()子函数---插入kv
+	bool _insert(const pair<K, V>& kv)
 	{
 		if (_root == nullptr)
 		{
@@ -236,7 +244,7 @@ public:
 
 		while (cur)
 		{
-			if (kv.first <(cur->_kv).first)
+			if (kv.first < (cur->_kv).first)
 			{
 				parent = cur;
 				cur = cur->_left;
@@ -321,6 +329,23 @@ public:
 		return true;
 	}
 
+public:
+	AVLTree():
+		_root(nullptr),
+		_size(0)
+	{}
+
+	//插入kv
+	bool insert(const pair<K, V>& kv)
+	{
+		bool insertResult = _insert(kv);
+
+		//根据插入成功/失败情况,更新树的大小
+		_size += insertResult;
+
+		return insertResult;
+	}
+
 	//前序遍历
 	void prev_order()
 	{
@@ -339,6 +364,12 @@ public:
 	int height()
 	{
 		return _is_balance(_root).second;
+	}
+
+	//获取树的大小
+	int size()
+	{
+		return _size;
 	}
 
 	//检查AVL树的实现是否正确
