@@ -119,4 +119,14 @@ public:
 	{
 		return _RBTree.end();
 	}
+
+
+
+	/// <summary>
+	/// Çå¿ÕÈÝÆ÷
+	/// </summary>
+	void clear()
+	{
+		_RBTree.clear();
+	}
 };

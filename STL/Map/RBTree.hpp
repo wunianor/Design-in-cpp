@@ -400,6 +400,21 @@ public:
 	}
 
 	/// <summary>
+	/// 清空红黑树
+	/// </summary>
+	void clear()
+	{
+		//如果大小为0,直接返回
+		if (_size == 0)
+		{
+			return;
+		}
+
+		_clear(_root);
+		_size = 0;
+	}
+
+	/// <summary>
 	/// 检查红黑树的实现是否正确
 	/// </summary>
 	/// <returns>正确返回true,错误返回false</returns>
@@ -416,6 +431,14 @@ public:
 	}
 
 
+
+	/// <summary>
+	/// 析构函数
+	/// </summary>
+	~RBTree()
+	{
+		clear();
+	}
 
 private:
 	/// <summary>
@@ -754,6 +777,24 @@ private:
 		size_t rightHeight = _height(root->_right); //右子树高度
 
 		return max(leftHeight, rightHeight) + 1;
+	}
+
+	/// <summary>
+	/// clear()子函数---采用后序遍历的方式,delete掉所有结点
+	/// </summary>
+	/// <param name="root">待清空的树的根</param>
+	void _clear(Node* root)
+	{
+		if (root == nullptr)
+		{
+			return;
+		}
+
+		_clear(root->_left);
+		_clear(root->_right);
+
+		delete root;
+		root = nullptr;
 	}
 };
 
