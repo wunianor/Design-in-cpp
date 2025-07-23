@@ -333,7 +333,7 @@ class AVLTree
 	/// clear()子函数---采用后序遍历的方式,delete掉所有结点
 	/// </summary>
 	/// <param name="root">待清空的树的根</param>
-	void _clear(Node* root)
+	void _clear(Node*& root)
 	{
 		if (root == nullptr)
 		{
@@ -401,12 +401,6 @@ public:
 	/// </summary>
 	void clear()
 	{
-		//如果大小为0,直接返回
-		if (_size == 0)
-		{
-			return;
-		}
-
 		_clear(_root);
 		_size = 0;
 	}
