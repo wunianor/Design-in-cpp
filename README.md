@@ -14,8 +14,11 @@
 4. queue
 5. priority\_queue
 6. string
-7. map
-8. set
+7. set
+8. map
+9. unordered\_set
+10. unordered\_map
+11. bitset
 
 ## 二.其他数据结构
 
@@ -24,6 +27,7 @@
 3. 树(二叉搜索树,AVL树)
 4. 并查集
 5. 图
+6. BloomFilter(布隆过滤器)
 
 ## 三.常见的八大排序
 
