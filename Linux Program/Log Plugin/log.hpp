@@ -16,6 +16,8 @@
     //    选项2:ONE_FILE        //日志输出方式:单个文件
     //    选项3:CLASSIFY_FILE   //日志输出方式:根据日志类型分类,输出到多个文件
 
+#pragma once
+
 
 #include <iostream>
 
