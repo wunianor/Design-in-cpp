@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <functional>
+#include <atomic>
 
 /// <summary>
 /// Shared_ptr 是一个智能指针类，
@@ -20,8 +21,9 @@ class Shared_ptr
 
 	/// <summary>
 	/// 引用计数,记录多少个指针指向这份资源
+	/// atomic保证对*_pCount的操作是原子的
 	/// </summary>
-	int* _pCount;
+	std::atomic<int>* _pCount;
 
 	/// <summary>
 	/// 自定义删除器,用于自定义资源释放方式
@@ -54,7 +56,7 @@ public:
 	/// <param name="ptr">要由Share_ptr对象管理的原始指针</param>
 	explicit Shared_ptr(T* ptr=nullptr) :
 		_ptr(ptr),
-		_pCount(new int(1))
+		_pCount(new std::atomic<int>(1))
 	{
 		std::cout << "构造:Share_ptr" << std::endl;
 	}
@@ -69,7 +71,7 @@ public:
 	template<class D>
 	Shared_ptr(T* ptr, D deleter) :
 		_ptr(ptr),
-		_pCount(new int(1)),
+		_pCount(new std::atomic<int>(1)),
 		_deleter(deleter)
 	{
 		std::cout << "构造:Share_ptr(自定义删除器)" << std::endl;

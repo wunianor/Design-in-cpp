@@ -31,7 +31,7 @@
 
 ## 三.智能指针
 1. unique_ptr
-2. shared_ptr,weak_ptr
+2. shared_ptr(线程安全),weak_ptr
 
 ## 四.常见的八大排序
 
